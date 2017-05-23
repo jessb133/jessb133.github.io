@@ -93,7 +93,8 @@ h2 {
 h3 {
 	color: $black;
 	font-size: 32px;
-	line-height: normal;
+	line-height: 32px;
+	margin-bottom: 12px;
 }
 
 p {
@@ -231,6 +232,35 @@ section {
 			}
 		}
 	}
+}
+
+.simplicity {
+	display: inline-block;
+	max-height: 37px;
+	overflow: hidden;
+	position: relative;
+
+	span {
+		display: inline-block;
+		transform: translateY(40px);
+		transition: all 0.4s ease-out;
+
+		&.active {
+			transform: translateY(0px);
+		}
+
+		&.up-and-away {
+			transform: translateY(-50px);
+			transition: all 0.4s ease-in;
+		}
+	}
+}
+
+.first {
+	display: block;
+		right: 0;
+		top: 0;
+	transition: all 0.4s ease-in;
 }
 
 .full {
