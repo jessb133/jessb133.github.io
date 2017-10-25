@@ -1,73 +1,87 @@
-var simplicitySwap = ['Simplicity', 'Solutions', 'Success'],
-    simplicitySpan = document.querySelector('.simplicity'),
-    i,
-    ii = 0,
 
-    //take array values and split the inner contents into separate characters,
-    //from here we return/call the spansAdded function passing in the singular characters
-    sArrInArr = simplicitySwap.map(function(val){
-      return val.split('').map(function(iv){
-        return spansAdded(iv)
-      })
-    })
+const intro = [
+  'Jess Brisson',
+  'The guy whom wrote this silly HTML console',
+  'jessbrisson@gmail.com',
+  ' ',
+  'Welcome to the Jess Brisson super minimalist console of awesomeness. The GUI has been ripped away from this site, however, you do have access to some commands to navigate around:',
+  ' ',
+  'intro <- Displays this intro',
+  'clear <- Clears the console',
+  'resume <- Displays my resume',
+  'contact <- Opens an email client for you to contact me',
+  ' ',
+  'Type in a command then press enter/return execute it',
+  'NOTE: Commands ARE case-sensitive',
+  ' '
+];
 
-//basic function takes a string value and adds a span around it
-function spansAdded(v){
-  var span = document.createElement('span')
-  span.textContent = v
-  return span
+const resume = [
+  'Resume and more coming soon ...'
+];
+
+// Function that splits strings contained in arrays
+function array_string_splitter(arr) {
+  return arr.map(function(v,i) {
+    return v.split('');
+  });
+};
+
+let intro_split = array_string_splitter.call(null, intro);
+let resume_split = array_string_splitter.call(null, resume);
+
+const cmd_exec = document.getElementById('cmd-exec');
+const input = document.querySelector('input');
+
+// Print out the array strings created from array_string_splitter
+function print_array_strings(arr, callback) {
+  let iteration = 0;
+  arr.forEach(function(v,i) {
+    v.forEach(function(vv,ii) {
+      setTimeout(function() {
+        cmd_exec.innerHTML += vv;
+        if(ii + 1 >= v.length)
+          cmd_exec.innerHTML += '<br>';
+      }, iteration);
+      ii + 1 >= v.length ? iteration += 250 : iteration += 33;
+    });
+    if(i + 1 >= arr.length && typeof callback == 'function') {
+      setTimeout(function() {
+        callback();
+      }, iteration += 300);
+    }
+  });
+};
+
+function print_intro() {
+  print_array_strings.call(null, intro_split, function() {
+    input.focus();
+  });
+};
+
+function print_resume() {
+  print_array_strings.call(null, resume_split, function() {
+    input.focus();
+  });
 }
 
-//function that operates the timing for css classes
+function command_check() {
+  document.onkeypress = function(ev) {
+    if(ev.which == 13) {
+      if(input.value == "clear") cmd_exec.innerHTML = "";
+      if(input.value == "intro") print_intro();
+      if(input.value == "resume") print_resume();
+      if(input.value == "contact") window.location.href = "mailto:jessbrisson@gmail.com?subject=Earth%20to%20Jess%20Brisson!";
+      input.value = "";
+    }
+  }
+};
 
-function outerTimeout(v, it){
+command_check();
+print_intro();
 
-  //we take the "length" as separate values,
-  //and use them as an incrementing value for staggering effect
-  setTimeout(function(){
-    v.classList.add('active')
-  }, (it + 1) * 100)
+window.addEventListener('click', function() {
+  input.focus();
+});
 
-  //from here we want to remove active and add up-and-away,
-  //set an outer timeout and an inner for the staggering effect
-  setTimeout(function(){
-    setTimeout(function(){
-      v.classList.remove('active')
-      v.classList.add('up-and-away')
-    }, (it + 1) * 100)
-  }, 5400)
-
-  //after completion, regardless of where we are in the process, we remove
-  //up-and-away
-  setTimeout(function(){
-    v.classList.remove('up-and-away')
-  }, 7000)
-}
-
-//first word to appear should have same animation
-
-sArrInArr[0].forEach(function(val){
-  simplicitySpan.appendChild(val)
-  outerTimeout(val, ii)
-  ii++
-})
-
-//interval for word swap
-
-i = 1
-setInterval(function(){
-  //clear simplicitySpan's innerHTML per call
-  simplicitySpan.innerHTML = ''
-
-  //check to see where we are in the array
-  if(i >= sArrInArr.length) i = 0
-  ii = 0
-
-  //each letter in the current array index will append, and animation timer will be called
-  sArrInArr[i].forEach(function(val){
-    simplicitySpan.appendChild(val)
-    outerTimeout(val, ii)
-    ii++
-  })
-  i++
-}, 7000)
+//
