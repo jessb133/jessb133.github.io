@@ -45,7 +45,7 @@ const resume = [
   '<a href="tel:19208437675">1.920.843.7675</a>',
   '<br><br>',
   '<h2>MY MISSION:</h2>',
-  '<p>To become a member of a strong and innovative company; one where I will grow and expand as a professional, and never fall behind the curve. To be an integral member of a team of professionals that seek expansion and success. To deliver on leave each project with a sense of accomplishment. This is my mission.</p>',
+  '<p>To become a member of a strong and innovative company; one where I will grow and expand as a professional, and never fall behind the curve. To be an integral member of a team of professionals that seek expansion and success. To deliver, and leave each project with a sense of accomplishment. This is my mission.</p>',
   '<br>',
   '<br>',
   '<h2>EDUCATION:</h2>',
