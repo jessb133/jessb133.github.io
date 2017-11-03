@@ -7,13 +7,23 @@ const intro = [
   'Welcome to the Jess Brisson super minimalist console of awesomeness. The GUI has been ripped away from this site, however, you do have access to some commands to navigate around:',
   ' ',
   'intro <- Displays this intro',
+  'commands <- Displays the command list',
   'clear <- Clears the console',
-  'resume <- Displays my resume',
+  'resume <- Clears the console and displays my resume',
   'contact <- Opens an email client for you to contact me',
   ' ',
   'Type in a command then press enter/return execute it',
   'NOTE: Commands ARE case-sensitive',
   ' '
+];
+
+const commands = [
+  'intro <- Displays the intro<br>',
+  'commands <- Displays the command list<br>',
+  'clear <- Clears the console<br>',
+  'resume <- Clears the console and displays my resume<br>',
+  'contact <- Opens an email client for you to contact me<br>',
+  '<br>'
 ];
 
 let emailASCII = [
@@ -84,6 +94,28 @@ const resume = [
   '<br>'
 ];
 
+
+let cnsl_bsy = false, attempted_command = false;
+
+function console_ready() {
+  input.focus();
+  cnsl_bsy = false;
+  if(attempted_command == true) {
+    input.style.color = "#fff";
+    input.value = input.value.substr(0, input.value.indexOf(" <-"));
+  }
+  attempted_command = false;
+}
+
+function console_busy() {
+  input.blur();
+  cnsl_bsy = true;
+  if(attempted_command == true) {
+    input.style.color = "#f00";
+    input.value += " <- Command executing, please wait.";
+  }
+}
+
 // Function that splits strings contained in arrays
 function array_string_splitter(arr) {
   return arr.map(function(v,i) {
@@ -102,64 +134,64 @@ function cce() {
 }
 
 // Print out the array strings created from array_string_splitter
-function print_array_strings(arr, callback) {
-  let iteration = 0;
+function print_array_strings(arr) {
+  console_busy();
+  let interval = 0;
   arr.forEach(function(v,i) {
     v.forEach(function(vv,ii) {
       setTimeout(function() {
         cmd_exec.innerHTML += vv;
         if(ii + 1 >= v.length)
           cmd_exec.innerHTML += '<br>';
-      }, iteration);
-      ii + 1 >= v.length ? iteration += 250 : iteration += 33;
+      }, interval);
+      ii + 1 >= v.length ? interval += 250 : interval += 33;
     });
-    if(i + 1 >= arr.length && typeof callback == 'function') {
+    if(i + 1 >= arr.length) {
       setTimeout(function() {
-        callback();
-      }, iteration += 300);
+        console_ready();
+      }, interval);
     }
   });
 };
 
 function print_intro() {
-  print_array_strings.call(null, intro_split, function() {
-    input.focus();
+  print_array_strings(intro_split);
+};
+
+function print_by_line(arr) {
+  console_busy();
+  var interval = 0;
+  arr.forEach(function(v, i) {
+    setTimeout(function() {
+      cmd_exec.innerHTML += v
+      if(i + 1 >= arr.length) {
+        console_ready();
+      }
+    }, interval);
+    interval += 50;
   });
 };
 
 function print_resume() {
-  var interval = 0;
-  resume.forEach(function(v) {
-    setTimeout(function() {
-      cmd_exec.innerHTML += v
-    }, interval);
-    interval += 77;
-  });
-};
+  cce();
+  print_by_line(resume);
+}
+
+function print_commands() {
+  print_by_line(commands);
+}
 
 function print_email_ascii(callback) {
   let interval = 0, ealen = emailASCII.length;
   emailASCII.forEach(function(v,i) {
     setTimeout(function() {
-      // cce();
       let ei  = ealen - (i + 1),
-          // cpr = ealen - ei,
-          // ii  = 0,
           iii = 0;
-      // while(ii < ei) {
-      //   console.log(' ');
-      //   ii++;
-      // }
-      // while(iii < ealen) {
         console.log(v);
-        // iii++;
 
         if(ei === 0) {
-          // setTimeout(function() {
-            if(typeof callback === 'function') callback();
-          // }, 100);
+          if(typeof callback === 'function') callback();
         }
-      // }
     }, interval);
     interval += 33;
   });
@@ -168,13 +200,24 @@ function print_email_ascii(callback) {
 function command_check() {
   document.onkeypress = function(ev) {
     if(ev.which == 13) {
-      if(input.value == "clear") cce();
-      if(input.value == "intro") print_intro();
-      if(input.value == "resume") print_resume();
-      if(input.value == "contact") print_email_ascii(
-        function() {window.location.href = "mailto:jessbrisson@gmail.com?subject=Earth%20to%20Jess%20Brisson!%20Lets%20talk%20\.\.\.";
-      });
-      input.value = "";
+      if(!cnsl_bsy) {
+        if(input.value == "clear") cce();
+        if(input.value == "intro") print_intro();
+        if(input.value == "resume") print_resume();
+        if(input.value == "commands") print_commands();
+        if(input.value == "contact") print_email_ascii(
+          function() {window.location.href = "mailto:jessbrisson@gmail.com?subject=Earth%20to%20Jess%20Brisson!%20Lets%20talk%20\.\.\.";
+        });
+        if(input.value != "clear"  && input.value != "intro"   &&
+           input.value != "resume" && input.value != "contact" &&
+           input.value != "commands") {
+           print_array_strings(array_string_splitter(["'" + input.value + "' is not a command, to see valid commands please type 'commands' and press enter/return.", "", "Remember, commands are case-sensitive", " "]), null);
+        }
+        input.value = "";
+      } else {
+        attempted_command = true;
+        console_busy();
+      }
     }
   }
 };
