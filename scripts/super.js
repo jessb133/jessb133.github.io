@@ -89,7 +89,7 @@ const resume = [
   '<p>Another technology I adore and use daily.</p>',
   '<br>',
   '<br>',
-  '<p><em>Yeah, I have some skills (summary): JavaScript, CSS/SCSS, Gulp, Babel, HTML5, jQuery, React, Vue, Bootstrap, PHP, C#, Python, Shell, WordPress, HubSpot, CodeIgniter, Kentico, Laravel, Foundation for emails, Photoshop, Git, Agile Development, Office Suite (Google, Microsoft).</em></p>',
+  '<p><em>Yeah, I have some skills (summary): JavaScript, CSS/SCSS, Gulp, Babel, HTML5, REST, JSON, jQuery, React, Vue, Bootstrap, PHP, C#, Python, Shell, WordPress, HubSpot, CodeIgniter, Kentico, Laravel, Foundation for emails, Photoshop, Git, Agile Development, Office Suite (Google, Microsoft).</em></p>',
   '<br>',
   '<br>',
   '<h2>EXPERIENCE:</h2>',
