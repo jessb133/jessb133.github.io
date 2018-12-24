@@ -1,3 +1,5 @@
+//React Snake(rsnake) - Jess Brisson
+
 class SnakeGame extends React.Component {
   constructor(props) {
     super(props);
