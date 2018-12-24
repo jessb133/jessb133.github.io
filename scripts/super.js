@@ -11,6 +11,7 @@ const intro = [
   'clear <- Clears the console',
   'resume <- Clears the console and displays my resume',
   'contact <- Opens an email client for you to contact me',
+  'rsnake <- Play my React version of Snake (press an arrow key to start)',
   ' ',
   'Type in a command then press enter/return execute it',
   'NOTE: Commands ARE case-sensitive',
@@ -23,7 +24,8 @@ const commands = [
   'clear <- Clears the console<br>',
   'resume <- Clears the console and displays my resume<br>',
   'contact <- Opens an email client for you to contact me<br>',
-  '<br>'
+  'rsnake <- Play my React version of Snake (press an arrow key to start)',
+  '<br><br>'
 ];
 
 let emailASCII = [
@@ -41,13 +43,9 @@ let emailASCII = [
   '@@                                                     @@',
   '@@               g m a i l [d o t] c o m               @@',
   '@@                                                     @@',
-  // '@@                                                     @@',
   '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@',
   ''
 ]
-//.map(function(v,i) {
-//   return v.replace(/\s/g, '&nbsp;');
-// });
 
 const resume = [
   '<h1>JESS BRISSON</h1>',
@@ -95,7 +93,7 @@ const resume = [
   '<br>',
   '<h3>Element Creative</h3>',
   '<p><small>May 16 – August 18</small></p>',
-  '<p>JavaScript(jQuery), PHP, HTML5, SCSS/CSS, Foundation for Emails, Bootstrap, WordPress, HubSpot, CodeIgniter</p>',
+  '<p>JavaScript, PHP, HTML5, SCSS/CSS, Foundation for Emails, Bootstrap, WordPress, HubSpot, CodeIgniter</p>',
   '<p>Examples of work: <a href="http://abouthealth.com/" target="_blank">abouthealth.com</a>, <a href="https://sadoff.com/" target="_blank">sadoff.com</a>, <a href="https://1855beef.com/" target="_blank">1855beef.com</a>, <a href="https://www.unisoncu.org/" target="_blank">unisoncu.org</a>, <a href="https://www.faithtechnologies.com/careers/" target="_blank">faithtechnologies.com/careers</a>, <a href="https://www.dbsbenefits.com/" target="_blank">dbsbenefits.com</a></p>',
   '<br>',
   '<h2>Stellar Blue Technologies</h2>',
@@ -207,8 +205,7 @@ function print_email_ascii(callback) {
   let interval = 0, ealen = emailASCII.length;
   emailASCII.forEach(function(v,i) {
     setTimeout(function() {
-      let ei  = ealen - (i + 1),
-          iii = 0;
+      let ei  = ealen - (i + 1);
         console.log(v);
 
         if(ei === 0) {
@@ -223,17 +220,21 @@ function command_check() {
   document.onkeypress = function(ev) {
     if(ev.which == 13) {
       if(!cnsl_bsy) {
-        if(input.value == "clear") cce();
-        if(input.value == "intro") print_intro();
-        if(input.value == "resume") print_resume();
-        if(input.value == "commands") print_commands();
-        if(input.value == "contact") print_email_ascii(
+        if(input.value === "clear") cce();
+        if(input.value === "intro") print_intro();
+        if(input.value === "resume") print_resume();
+        if(input.value === "commands") print_commands();
+        if(input.value === "contact") print_email_ascii(
           function() {window.location.href = "mailto:jessbrisson@gmail.com?subject=Earth%20to%20Jess%20Brisson!%20Lets%20talk%20\.\.\.";
         });
-        if(input.value != "clear"  && input.value != "intro"   &&
-           input.value != "resume" && input.value != "contact" &&
-           input.value != "commands") {
+        if(input.value !== "clear"  && input.value !== "intro"   &&
+           input.value !== "resume" && input.value !== "contact" &&
+           input.value !== "commands" && input.value !== "rsnake") {
            print_array_strings(array_string_splitter(["'" + input.value + "' is not a command, to see valid commands please type 'commands' and press enter/return.", "", "Remember, commands are case-sensitive", " "]), null);
+        }
+        if(input.value === "rsnake") {
+          document.querySelector('#rsnake').style.display = "block";
+          document.querySelector('#gameboard').focus();
         }
         input.value = "";
       } else {
@@ -247,8 +248,11 @@ function command_check() {
 command_check();
 print_intro();
 
-window.addEventListener('click', function() {
-  input.focus();
+window.addEventListener('click', function(ev) {
+  if(ev.target == document.querySelector('#gameboard'))
+    document.querySelector('#gameboard').focus();
+  else
+    input.focus();
 });
 
 //
