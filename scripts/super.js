@@ -37,7 +37,7 @@ let emailASCII = [
   '@@                                                     @@',
   '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@',
   ''
-]
+];
 
 const resume = [
   '<h1>JESS BRISSON</h1>',
@@ -132,7 +132,7 @@ function array_string_splitter(arr) {
   return arr.map(function(v,i) {
     return v.split('');
   });
-};
+}
 
 const intro_split = array_string_splitter(intro);
 const resume_split = array_string_splitter(resume);
@@ -162,11 +162,11 @@ function print_array_strings(arr) {
       }, interval);
     }
   });
-};
+}
 
 function print_intro() {
   print_array_strings(intro_split);
-};
+}
 
 function print_by_line(arr) {
   console_busy();
@@ -180,7 +180,7 @@ function print_by_line(arr) {
     }, interval);
     interval += 50;
   });
-};
+}
 
 function print_resume() {
   cce();
@@ -204,7 +204,7 @@ function print_email_ascii(callback) {
     }, interval);
     interval += 33;
   });
-};
+}
 
 function command_check() {
   document.onkeypress = ev => {
@@ -233,7 +233,7 @@ function command_check() {
       }
     }
   }
-};
+}
 
 command_check();
 print_intro();
