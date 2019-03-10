@@ -168,12 +168,13 @@ function print_intro() {
   print_array_strings(intro_split);
 }
 
-function print_by_line(arr) {
+function print_by_line(arr, breaks = false) {
   console_busy();
   var interval = 0;
   arr.forEach((v, i) => {
     setTimeout(() => {
       cmd_exec.innerHTML += v
+      breaks && (cmd_exec.innerHTML += '<br>');
       if(i + 1 >= arr.length) {
         console_ready();
       }
@@ -188,7 +189,7 @@ function print_resume() {
 }
 
 function print_commands() {
-  print_array_strings(commands);
+  print_by_line(commands, true);
 }
 
 function print_email_ascii(callback) {
