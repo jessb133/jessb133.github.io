@@ -1,23 +1,3 @@
-
-const intro = [
-  'Jess Brisson',
-  'The guy who wrote this silly HTML console',
-  'jessbrisson@gmail.com',
-  ' ',
-  'Welcome to the Jess Brisson super minimalist console of awesomeness. The GUI has been ripped away from this site, however, you do have access to some commands to navigate around:',
-  ' ',
-  'intro <- Displays this intro',
-  'commands <- Displays the command list',
-  'clear <- Clears the console',
-  'resume <- Clears the console and displays my resume',
-  'contact <- Opens an email client for you to contact me',
-  'rsnake <- Play my React version of Snake (press an arrow key to start)',
-  ' ',
-  'Type in a command then press enter/return execute it',
-  'NOTE: Commands ARE case-sensitive',
-  ' '
-];
-
 const commands = [
   'intro <- Displays the intro<br>',
   'commands <- Displays the command list<br>',
@@ -26,6 +6,18 @@ const commands = [
   'contact <- Opens an email client for you to contact me<br>',
   'rsnake <- Play my React version of Snake (press an arrow key to start)',
   '<br><br>'
+];
+
+const intro = [
+  'Jess Brisson',
+  'jessbrisson@gmail.com',
+  ' ',
+  'Welcome to my interactive console. The GUI has been ripped away from this site, however, you do have access to some commands to navigate around:',
+  ' ',
+  ...commands,
+  'Type in a command then press enter/return execute it',
+  'NOTE: Commands ARE case-sensitive',
+  ' '
 ];
 
 let emailASCII = [
@@ -114,14 +106,13 @@ const resume = [
   '<br>'
 ];
 
-
 let cnsl_bsy = false, attempted_command = false;
 
 function console_ready() {
   input.focus();
   cnsl_bsy = false;
-  if(attempted_command == true) {
-    input.style.color = "#fff";
+  if(attempted_command === true) {
+    input.style.color = "#1abc9c";
     input.value = input.value.substr(0, input.value.indexOf(" <-"));
   }
   attempted_command = false;
@@ -143,9 +134,8 @@ function array_string_splitter(arr) {
   });
 };
 
-let intro_split = array_string_splitter.call(null, intro);
-let resume_split = array_string_splitter.call(null, resume);
-
+const intro_split = array_string_splitter(intro);
+const resume_split = array_string_splitter(resume);
 const cmd_exec = document.getElementById('cmd-exec');
 const input = document.querySelector('input');
 
@@ -157,9 +147,9 @@ function cce() {
 function print_array_strings(arr) {
   console_busy();
   let interval = 0;
-  arr.forEach(function(v,i) {
-    v.forEach(function(vv,ii) {
-      setTimeout(function() {
+  arr.forEach((v,i) => {
+    v.forEach((vv,ii) => {
+      setTimeout(() => {
         cmd_exec.innerHTML += vv;
         if(ii + 1 >= v.length)
           cmd_exec.innerHTML += '<br>';
@@ -167,7 +157,7 @@ function print_array_strings(arr) {
       ii + 1 >= v.length ? interval += 250 : interval += 33;
     });
     if(i + 1 >= arr.length) {
-      setTimeout(function() {
+      setTimeout(() => {
         console_ready();
       }, interval);
     }
@@ -181,8 +171,8 @@ function print_intro() {
 function print_by_line(arr) {
   console_busy();
   var interval = 0;
-  arr.forEach(function(v, i) {
-    setTimeout(function() {
+  arr.forEach((v, i) => {
+    setTimeout(() => {
       cmd_exec.innerHTML += v
       if(i + 1 >= arr.length) {
         console_ready();
@@ -203,8 +193,8 @@ function print_commands() {
 
 function print_email_ascii(callback) {
   let interval = 0, ealen = emailASCII.length;
-  emailASCII.forEach(function(v,i) {
-    setTimeout(function() {
+  emailASCII.forEach((v,i) => {
+    setTimeout(() => {
       let ei  = ealen - (i + 1);
         console.log(v);
 
@@ -217,7 +207,7 @@ function print_email_ascii(callback) {
 };
 
 function command_check() {
-  document.onkeypress = function(ev) {
+  document.onkeypress = ev => {
     if(ev.which == 13) {
       if(!cnsl_bsy) {
         if(input.value === "clear") cce();
@@ -228,8 +218,8 @@ function command_check() {
           function() {window.location.href = "mailto:jessbrisson@gmail.com?subject=Earth%20to%20Jess%20Brisson!%20Lets%20talk%20\.\.\.";
         });
         if(input.value !== "clear"  && input.value !== "intro"   &&
-           input.value !== "resume" && input.value !== "contact" &&
-           input.value !== "commands" && input.value !== "rsnake") {
+          input.value !== "resume" && input.value !== "contact" &&
+          input.value !== "commands" && input.value !== "rsnake") {
            print_array_strings(array_string_splitter(["'" + input.value + "' is not a command, to see valid commands please type 'commands' and press enter/return.", "", "Remember, commands are case-sensitive", " "]), null);
         }
         if(input.value === "rsnake") {
@@ -248,11 +238,9 @@ function command_check() {
 command_check();
 print_intro();
 
-window.addEventListener('click', function(ev) {
+window.addEventListener('click', ev => {
   if(ev.target == document.querySelector('#gameboard'))
     document.querySelector('#gameboard').focus();
   else
     input.focus();
 });
-
-//
