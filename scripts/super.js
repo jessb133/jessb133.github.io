@@ -188,7 +188,7 @@ function print_resume() {
 }
 
 function print_commands() {
-  print_by_line(commands);
+  print_array_strings(commands);
 }
 
 function print_email_ascii(callback) {
