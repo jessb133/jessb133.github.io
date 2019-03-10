@@ -51,15 +51,17 @@ html {
 }
 
 body {
-	align-items: center;
-	background: #eee;
+/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#2b457a+0,6d9a96+35,a7687a+76,090538+100 */
+	background: #2b457a; /* Old browsers */
+	background: -moz-linear-gradient(-45deg, #2b457a 0%, #6d9a96 35%, #a7687a 76%, #090538 100%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(-45deg, #2b457a 0%,#6d9a96 35%,#a7687a 76%,#090538 100%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(135deg, #2b457a 0%,#6d9a96 35%,#a7687a 76%,#090538 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2b457a', endColorstr='#090538',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 	border: none;
 	color: #1abc9c;
-	display: flex;
 	font-family: 'Courier', 'Courier New', sans-serif;
 	font-size: 16px;
 	height: 100%;
-	justify-content: center;
 	line-height: 1;
 }
 
@@ -67,15 +69,37 @@ body:focus, textarea:focus {
     outline: none;
 }
 
+header {
+	background: #2c2c2c;
+	box-shadow: 1px 1px 12x #2c2c2c;
+	display: flex;
+		justify-content: right;
+	height: 24px;
+	width: 100%;
+}
+
+#clock {
+	box-sizing: border-box;
+	color: #fefefe;
+	font-family: 'Ubuntu', sans-serif;
+	font-weight: 300;
+	line-height: 24px;
+	padding-right: 8px;
+}
+
 main {
 	background: #2c2c2c;
+	border-radius: 12px;
 	box-shadow: 1px 1px 24px #2c2c2c;
 	height: 80vh;
 	max-width: 900px;
 	min-width: 320px;
-	overflow-x: hidden;
-	overflow-y: scroll;
+	overflow: hidden;
 	padding: 15px;
+	position: absolute;
+		left: 50%;
+		top: 50%;
+	transform: translate(-50%, -50%);
 	width: 80%;
 }
 

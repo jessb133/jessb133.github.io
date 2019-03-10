@@ -39,74 +39,27 @@ let emailASCII = [
   ''
 ];
 
-const resume = [
-  '<h1>JESS BRISSON</h1>',
-  '<a href="mailto:jessbrisson@gmail.com">jessbrisson@gmail.com</a><br>',
-  '<a href="tel:19208437675">1.920.843.7675</a>',
-  '<br><br>',
-  '<h2>MY MISSION:</h2>',
-  '<p>To become a member of a strong and innovative company; one where I will grow and expand as a professional, and never fall behind the curve. To be an integral member of a team of professionals that seek expansion and success. To deliver, and leave each project with a sense of accomplishment. This is my mission.</p>',
-  '<br>',
-  '<br>',
-  '<h2>EDUCATION:</h2>',
-  '<h3>Fox Valley Technical College</h3>',
-  '<p><small>August 2013-December 2015</small></p>',
-  '<p>Web Development & Design. 3.9gpa. Associates Degree Earned</p>',
-  '<p>HTML, CSS, JavaScript, PHP, Photoshop, Agile Development, Accessibility, UX, and Project Management.</p>',
-  '<br>',
-  '<br>',
-  '<h2>SKILLS:</h2>',
-  '<p>HTML5: Semantics are important for accessibility and SEO. </p>',
-  '<p>I deliver clean, concise markup that is accessible to its users.</p>',
-  '<br>',
-  '<p>CSS: Modern development with SCSS, CSS Flexbox, Bootstrap, can drive a design from start to finish faster than before. </p>',
-  '<p>Implementing these technologies while keeping the code minimalist and clean is how I roll.</p>',
-  '<br>',
-  '<p>JavaScript: The web language that started it all with me. </p>',
-  '<p>ES6 with Babel, React, Vue, and even Typescript are some of the technologies I utilize daily. </p>',
-  '<p>Programming paradigms such as functional and OOP have kept my code clean and consistent. </p>',
-  '<p>While this may seem contradictive, knowing such paradigms keeps me flexible as a developer.</p>',
-  '<br>',
-  '<p>PHP: PHP has been the main back-end language I have been utilizing. </p>',
-  '<p>From simple page layouts, to full MVC structured programs, on the fly report generating systems, and AJAX driven blog pages, growth in the back-end has led me to be a well-rounded full stack developer.</p>',
-  '<br>',
-  '<p>Git: This technology, while so simple, is so powerful. </p>',
-  '<p>Another technology I adore and use daily.</p>',
-  '<br>',
-  '<p>It doesn\'t stop there however. I am looking to be part of a team that utilizes modern technologies; My passion for the front-end, especially JavaScript, has me looking for amazing opportunities to fulfill my purpose as a JavaScript applications developer.</p>',
-  '<br>',
-  '<br>',
-  '<p><em>Skills Summary: JavaScript, CSS/SCSS, Gulp, Babel, HTML5, REST API, JSON, jQuery, React, VueJS, AJAX, Bootstrap, PHP, Shell(Bash), WordPress, HubSpot, CodeIgniter, Foundation for emails, Photoshop, Git, Agile Development, Office Suite (Google, Microsoft).</em></p>',
-  '<br>',
-  '<br>',
-  '<h2>EXPERIENCE:</h2>',
-  '<h3>Freelance Web Developer</h3>',
-  '<p><small>August 18 - Current</small></p>',
-  '<br>',
-  '<h3>Element Creative</h3>',
-  '<p><small>May 16 – August 18</small></p>',
-  '<p>JavaScript, PHP, HTML5, SCSS/CSS, Foundation for Emails, Bootstrap, WordPress, HubSpot, CodeIgniter</p>',
-  '<p>Examples of work: <a href="http://abouthealth.com/" target="_blank">abouthealth.com</a>, <a href="https://sadoff.com/" target="_blank">sadoff.com</a>, <a href="https://1855beef.com/" target="_blank">1855beef.com</a>, <a href="https://www.unisoncu.org/" target="_blank">unisoncu.org</a>, <a href="https://www.faithtechnologies.com/careers/" target="_blank">faithtechnologies.com/careers</a>, <a href="https://www.dbsbenefits.com/" target="_blank">dbsbenefits.com</a></p>',
-  '<br>',
-  '<h2>Stellar Blue Technologies</h2>',
-  '<p><small>September 15 – May 16</small></p>',
-  '<p>Front-End Web Development With WordPress</p>',
-  '<p>Examples of work: <a href="https://riverviewgardens.org/" target="_blank">riverviewgardens.org</a>, <a href="http://castlepierce.com/" target="_blank">castlepierce.com</a>, <a href="http://gbbg.org/" target="_blank">gbbg.org</a>, <a href="https://crytycal.com/" target="_blank">crytycal.com</a>, <a href="http://ati-ae.com/" target="_blank">ati-ae.com</a>',
-  '<br>',
-  '<h2>WebFitters</h2>',
-  '<p><small>May 15 – August 15</small></p>',
-  '<p>Front-End Web Development on the Codeigniter platform</p>',
-  '<br>',
-  '<h2>Fox Valley Technical College</h2>',
-  '<p><small>August 14-December 15</small></p>',
-  '<p>PHP, JavaScript, CSS, HTML Tutor</p>',
-  '<br>',
-  '<br>',
-  '<p><em>To get more info give me a jingle or type "contact" in the console!</em></p>',
-  '<br>'
-];
+const resume = "https://docs.google.com/document/d/1sR0BGYcJSHVV1sRXLOf0kKNuAyrWxFYkiMeS9d0qQEU/edit?usp=sharing";
 
 let cnsl_bsy = false, attempted_command = false;
+
+function clockTick() {
+  const clock = document.querySelector('header #clock');
+  return function() {
+    let date = new Date();
+    let hour = date.getHours() - 12 < 0 ? 
+      [date.getHours() === 0  ? 12 : date.getHours(), 'AM'] : 
+      [date.getHours() === 12 ? 12 : date.getHours() - 12, 'PM'];
+    let minutes = date.getMinutes() < 10 ? 
+      "0" + date.getMinutes() : 
+      date.getMinutes();
+    clock.textContent = `${hour[0]}:${minutes} ${hour[1]}`;
+  }
+}
+
+let tickingClock = clockTick();
+
+setInterval(tickingClock, 1000);
 
 function console_ready() {
   input.focus();
@@ -127,7 +80,6 @@ function console_busy() {
   }
 }
 
-// Function that splits strings contained in arrays
 function array_string_splitter(arr) {
   return arr.map(function(v,i) {
     return v.split('');
@@ -135,7 +87,6 @@ function array_string_splitter(arr) {
 }
 
 const intro_split = array_string_splitter(intro);
-const resume_split = array_string_splitter(resume);
 const cmd_exec = document.getElementById('cmd-exec');
 const input = document.querySelector('input');
 
@@ -143,7 +94,6 @@ function cce() {
   cmd_exec.innerHTML = "";
 }
 
-// Print out the array strings created from array_string_splitter
 function print_array_strings(arr) {
   console_busy();
   let interval = 0;
@@ -183,11 +133,6 @@ function print_by_line(arr, breaks = false) {
   });
 }
 
-function print_resume() {
-  cce();
-  print_by_line(resume);
-}
-
 function print_commands() {
   print_by_line(commands, true);
 }
@@ -198,7 +143,6 @@ function print_email_ascii(callback) {
     setTimeout(() => {
       let ei  = ealen - (i + 1);
         console.log(v);
-
         if(ei === 0) {
           if(typeof callback === 'function') callback();
         }
@@ -213,7 +157,7 @@ function command_check() {
       if(!cnsl_bsy) {
         if(input.value === "clear") cce();
         if(input.value === "intro") print_intro();
-        if(input.value === "resume") print_resume();
+        if(input.value === "resume") window.open(resume);
         if(input.value === "commands") print_commands();
         if(input.value === "contact") print_email_ascii(
           function() {window.location.href = "mailto:jessbrisson@gmail.com?subject=Earth%20to%20Jess%20Brisson!%20Lets%20talk%20\.\.\.";
