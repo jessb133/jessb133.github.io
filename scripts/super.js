@@ -5,7 +5,7 @@ const commands = [
   'resume <- Clears the console and displays my resume<br>',
   'contact <- Opens an email client for you to contact me<br>',
   'rsnake <- Play my React version of Snake (press an arrow key to start)',
-  '<br><br>'
+  ' '
 ];
 
 const intro = [
