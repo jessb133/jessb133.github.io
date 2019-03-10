@@ -1,6 +1,6 @@
 #gameboard {
   border: 1px solid #1abc9c;
-  background: #2c2c2c;
+  background: transparent;
   height: 310px;
   position: relative;
   width: 310px;

@@ -88,7 +88,7 @@ header {
 }
 
 main {
-	background: #2c2c2c;
+	background: rgba(44, 44, 44, 0.9);
 	border-radius: 12px;
 	box-shadow: 1px 1px 24px #2c2c2c;
 	height: 80vh;
@@ -120,7 +120,7 @@ em {
 }
 
 input {
-	background: #2c2c2c;
+	background: transparent;
 	border: none;
 	color: #1abc9c;
 	font-family: 'Courier', 'Courier New', sans-serif;
@@ -130,12 +130,23 @@ input {
 	width: 100%;
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 640px) {
   #cmd-input {
 	  flex-direction: column;
   }
 
   input {
 	  padding-left: 0;
-  }
+	}
+	
+	main {
+		border-radius: 0;
+		box-sizing: border-box;
+		height: calc(100% - 24px);
+		top: 24px;
+		transform: translate(-50%, 0);
+		max-width: none;
+		padding: 10px;
+		width: 100%;
+	}
 }
