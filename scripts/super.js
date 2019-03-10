@@ -1,9 +1,9 @@
 const commands = [
-  'intro <- Displays the intro<br>',
-  'commands <- Displays the command list<br>',
-  'clear <- Clears the console<br>',
-  'resume <- Clears the console and displays my resume<br>',
-  'contact <- Opens an email client for you to contact me<br>',
+  'intro <- Displays the intro',
+  'commands <- Displays the command list',
+  'clear <- Clears the console',
+  'resume <- Clears the console and displays my resume',
+  'contact <- Opens an email client for you to contact me',
   'rsnake <- Play my React version of Snake (press an arrow key to start)',
   ' '
 ];
