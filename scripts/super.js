@@ -12,10 +12,10 @@ const intro = [
   'Jess Brisson',
   'jessbrisson@gmail.com',
   ' ',
-  'Welcome to my interactive console. The GUI has been ripped away from this site, however, you do have access to some commands to navigate around:',
+  'Welcome to my interactive console. As there is a lack of a proper GUI, you will have to execute commands!',
+  'Here is the list of commands available:',
   ' ',
   ...commands,
-  'Type in a command then press enter/return execute it',
   'NOTE: Commands ARE case-sensitive',
   ' '
 ];

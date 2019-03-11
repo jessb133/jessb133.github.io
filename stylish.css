@@ -73,7 +73,7 @@ header {
 	background: #2c2c2c;
 	box-shadow: 1px 1px 12x #2c2c2c;
 	display: flex;
-		justify-content: right;
+		justify-content: flex-end;
 	height: 24px;
 	width: 100%;
 }
