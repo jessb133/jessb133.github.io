@@ -21,7 +21,7 @@ const intro = [
   'NOTE: Commands ARE case-sensitive',
   ' '
 ];
-const emailASCII = [
+const email_ASCII = [
   '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@',
   '@@                                                     @@',
   '@@ @@@                                             @@@ @@',
@@ -39,13 +39,21 @@ const emailASCII = [
   '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@',
   ''
 ];
+const non_valid_request = [
+  "is not a command, to see valid commands please type \"commands\" and press enter/return.", 
+  " ", 
+  "Remember, commands are case-sensitive", 
+  " "
+];
 const resume = "https://docs.google.com/document/d/1sR0BGYcJSHVV1sRXLOf0kKNuAyrWxFYkiMeS9d0qQEU/edit?usp=sharing";
 const cmd_exec = document.getElementById('cmd-exec');
 const input = document.querySelector('input');
 const clock = document.querySelector('header #clock');
+const my_email = "mailto:jessbrisson@gmail.com?subject=Earth%20to%20Jess%20Brisson!%20Lets%20talk%20\.\.\.";
 
 let cnsl_bsy = false; 
 let attempted_command = false;
+let input_value = "";
 
 /*
   Functions
@@ -61,7 +69,8 @@ function clockTick() {
   clock.textContent = `${hour[0]}:${minutes} ${hour[1]}`;
 }
 
-function console_ready() {
+function consoleReady() {
+  input_value = "";
   input.focus();
   cnsl_bsy = false;
   if(attempted_command === true) {
@@ -71,25 +80,25 @@ function console_ready() {
   attempted_command = false;
 }
 
-function console_busy() {
+function consoleBusy() {
   input.blur();
   cnsl_bsy = true;
   if(attempted_command == true) {
-    let inputValue = input.value;
+    input_value = !input_value.length ? input.value : input_value;
     input.style.color = "#f00";
     input.value = "";
-    input.value = `${inputValue} <- Command executing, please wait.`;
+    input.value = `${input_value} <- Command executing, please wait.`;
   }
 }
 
-function array_string_splitter(arr) {
+function arrayStringSplitter(arr) {
   return arr.map(function(str) {
     return str.split('');
   });
 }
 
-function print_array_strings(arr) {
-  console_busy();
+function printArraystrings(arr) {
+  consoleBusy();
   let interval = 0;
   arr.forEach((str,ind) => {
     str.forEach((char,iind) => {
@@ -103,30 +112,30 @@ function print_array_strings(arr) {
     });
     if (ind + 1 >= arr.length) {
       setTimeout(() => {
-        console_ready();
+        consoleReady();
       }, interval);
     }
   });
 }
 
-function print_by_line(arr, breaks = false) {
-  console_busy();
+function printByLine(arr, breaks = false) {
+  consoleBusy();
   var interval = 0;
   arr.forEach((str, ind) => {
     setTimeout(() => {
       cmd_exec.innerHTML += str
       breaks && (cmd_exec.innerHTML += '<br>');
       if(ind + 1 >= arr.length) {
-        console_ready();
+        consoleReady();
       }
     }, interval);
     interval += 50;
   });
 }
 
-function print_email_ascii(callback) {
-  let interval = 0, ealen = emailASCII.length;
-  emailASCII.forEach((str,ind) => {
+function printEmailAscii(callback) {
+  let interval = 0, ealen = email_ASCII.length;
+  email_ASCII.forEach((str,ind) => {
     setTimeout(() => {
       let ei  = ealen - (ind + 1);
         console.log(str);
@@ -149,22 +158,19 @@ document.onkeypress = ev => {
           cmd_exec.innerHTML = "";
           break;
         case "intro":
-          print_array_strings(
-            array_string_splitter(intro)
+          printArraystrings(
+            arrayStringSplitter(intro)
           );
           break;
         case "resume":
           window.open(resume);
           break;
         case "commands":
-          print_by_line(commands, true);
+          printByLine(commands, true);
           break;
         case "contact":
-          print_email_ascii(() => {
-              window.location.href = `
-              mailto:jessbrisson@gmail.com
-              ?subject=Earth%20to%20Jess%20Brisson!%20Lets%20talk%20\.\.\.
-              `;
+          printEmailAscii(() => {
+              window.location.href = my_email;
           });
           break;
         case "rsnake":
@@ -172,25 +178,25 @@ document.onkeypress = ev => {
           document.querySelector('#gameboard').focus();
           break;
         default:
-          print_array_strings(
-            array_string_splitter([
-            `"${input.value}" is not a command, to see valid commands please type "commands" and press enter/return.`, 
-            " ", 
-            "Remember, commands are case-sensitive", 
-            " "]),
-          null);
+          printArraystrings(
+            arrayStringSplitter([
+            `"${input.value}"` + non_valid_request[0], 
+            non_valid_request[1], 
+            non_valid_request[2], 
+            non_valid_request[3]
+          ]), null);
       }
       input.value = "";
     } else {
       attempted_command = true;
-      console_busy();
+      consoleBusy();
     }
   }
 }
 
 setInterval(clockTick, 1000);
-print_array_strings(
-  array_string_splitter(intro)
+printArraystrings(
+  arrayStringSplitter(intro)
 );
 window.addEventListener('click', ev => {
   if (ev.target == document.querySelector('#gameboard')) {
