@@ -56,7 +56,7 @@ let attempted_command = false;
 let input_value = "";
 
 /*
-  Functions
+  Funcs
 */
 function clockTick() {
   let date = new Date();
@@ -73,7 +73,7 @@ function consoleReady() {
   input_value = "";
   input.focus();
   cnsl_bsy = false;
-  if(attempted_command === true) {
+  if (attempted_command === true) {
     input.style.color = "#1abc9c";
     input.value = input.value.substr(0, input.value.indexOf(" <-"));
   }
@@ -83,7 +83,7 @@ function consoleReady() {
 function consoleBusy() {
   input.blur();
   cnsl_bsy = true;
-  if(attempted_command == true) {
+  if (attempted_command == true) {
     input_value = !input_value.length ? input.value : input_value;
     input.style.color = "#f00";
     input.value = "";
@@ -125,7 +125,7 @@ function printByLine(arr, breaks = false) {
     setTimeout(() => {
       cmd_exec.innerHTML += str
       breaks && (cmd_exec.innerHTML += '<br>');
-      if(ind + 1 >= arr.length) {
+      if (ind + 1 >= arr.length) {
         consoleReady();
       }
     }, interval);
@@ -134,13 +134,14 @@ function printByLine(arr, breaks = false) {
 }
 
 function printEmailAscii(callback) {
-  let interval = 0, ealen = email_ASCII.length;
+  let interval = 0; 
+  let ealen = email_ASCII.length;
   email_ASCII.forEach((str,ind) => {
     setTimeout(() => {
-      let ei  = ealen - (ind + 1);
+      let ei = ealen - (ind + 1);
         console.log(str);
-        if(ei === 0) {
-          if(typeof callback === 'function') callback();
+        if (ei === 0 && typeof callback === "function") {
+          callback();
         }
     }, interval);
     interval += 33;
