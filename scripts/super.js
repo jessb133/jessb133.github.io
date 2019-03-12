@@ -51,6 +51,7 @@ const input = document.querySelector('input');
 const clock = document.querySelector('header #clock');
 const my_email = "mailto:jessbrisson@gmail.com?subject=Earth%20to%20Jess%20Brisson!%20Lets%20talk%20\.\.\.";
 
+// Vars : state
 let cnsl_bsy = false; 
 let attempted_command = false;
 let input_value = "";
@@ -83,7 +84,7 @@ function consoleReady() {
 function consoleBusy() {
   input.blur();
   cnsl_bsy = true;
-  if (attempted_command == true) {
+  if (attempted_command === true) {
     input_value = !input_value.length ? input.value : input_value;
     input.style.color = "#f00";
     input.value = "";
@@ -196,9 +197,11 @@ document.onkeypress = ev => {
 }
 
 setInterval(clockTick, 1000);
+
 printArraystrings(
   arrayStringSplitter(intro)
 );
+
 window.addEventListener('click', ev => {
   if (ev.target == document.querySelector('#gameboard')) {
     document.querySelector('#gameboard').focus();
@@ -206,3 +209,4 @@ window.addEventListener('click', ev => {
     input.focus();
   }
 });
+// fin
