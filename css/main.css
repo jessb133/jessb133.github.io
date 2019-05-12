@@ -83,7 +83,7 @@ a:hover {
  * Sections 
  */
 
-section {
+section, footer {
   align-content: center;
   align-items: center;
   background: #fff;
@@ -184,8 +184,13 @@ section:first-child .h4 {
  * Footer
  */
 .mastfoot {
+  background: #111;
   color: rgba(255, 255, 255, .5);
+  height: auto;
+  padding-top: 10px;
 }
+
+.mastfoot p { line-height: normal; }
 
 @media only screen and (max-width: 920px) {
   h1 { font-size: 80px; }
@@ -225,7 +230,7 @@ section:first-child .h4 {
     background: #fff;
   }
 
-  .masthead, section { width: 100%; }
+  .masthead, section, .mastfoot { width: 100%; }
   .masthead {
     background: rgba(51,51,51, 0.7);
     opacity: 1;

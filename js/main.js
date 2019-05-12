@@ -1,22 +1,11 @@
 // Variables
-const locationHref = location.href;
 const jbSections = document.querySelectorAll('section'); 
-const navLinks = document.querySelectorAll('.nav-link');
+const jbNavLinks = document.querySelectorAll('.nav-link');
+const jbDate = document.querySelector('.jb-date');
 let jbSectionsComp = [];
-let navLinksComp = [];
+let jbNavLinksComp = [];
 
-// Nodelist to Array
-function nodelistToArray(nodes) {
-    let arrCollection = [];
-
-    for(var i = 0; i < nodes.length; i++) {
-        arrCollection.push(nodes[i]);
-    }
-
-    return arrCollection;
-}
-
-[jbSectionsComp, navLinksComp] = [nodelistToArray(jbSections), nodelistToArray(navLinks)];
+[jbSectionsComp, jbNavLinksComp] = [Array.from(jbSections), Array.from(jbNavLinks)];
 
 function scrollWindow(offsetTop) {
     window.scrollTo({
@@ -33,7 +22,7 @@ function windowScrollSections(i) {
             jbSectionsComp[i].classList.add('active');
 }
 
-navLinksComp.forEach(function(v) {
+jbNavLinksComp.forEach(function(v) {
     v.addEventListener('click', function(ev) {
         ev.preventDefault();
         var navLinkTo = v.getAttribute('href');
@@ -50,6 +39,8 @@ window.addEventListener('scroll', () => {
         windowScrollSections(i);
     });
 });
+
+jbDate.textContent = (new Date()).getFullYear();
 
 // Hamburger menu
 document.querySelector('.hmbgr-menu').addEventListener('click', function() {
