@@ -1,48 +1,66 @@
-// Variables
-const jbSections = document.querySelectorAll('section'); 
-const jbNavLinks = document.querySelectorAll('.nav-link');
-const jbDate = document.querySelector('.jb-date');
-let jbSectionsComp = [];
-let jbNavLinksComp = [];
+const app = new Vue({
+    el: "#root",
+    data: {
+        emailActive: true,
+        sections: [
+            { name: "top" },
+            { name: "about" },
+            { name: "services" },
+            { name: "contact" },
+        ],
+        scrollFadeDebounce: null
+    },
+    methods: {
+        emailHoneypot() {
+            this.emailActive = !this.emailActive;
+        },
 
-[jbSectionsComp, jbNavLinksComp] = [Array.from(jbSections), Array.from(jbNavLinks)];
+        scrollToSection(event) {
+            const navLinkTo = event.target.getAttribute('href');
+            window.scrollTo({
+                'behavior': 'smooth',
+                'top': document.getElementById(navLinkTo.substring(1)).offsetTop
+            });
+            setTimeout(() => {
+                document.querySelector('.hmbgr-menu').parentElement.classList.remove('menu-active');
+            }, 500);
+        },
 
-function scrollWindow(offsetTop) {
-    window.scrollTo({
-        'behavior': 'smooth',
-        'top': offsetTop
-    });
-    setTimeout(() => {
-        document.querySelector('.hmbgr-menu').parentElement.classList.remove('menu-active');
-    }, 500);
-}
+        scrollFadeSection() {
+            for (let section in this.$refs) {
+                if (window.pageYOffset > this.$refs[section].offsetTop - (window.innerHeight / 2) + 100) {
+                    this.$refs[section].classList.add('active');
+                    if (section === "jbContact") {
+                        window.removeEventListener('scroll', this.scrollFadeDebounce);
+                    }
+                }
+            }
+        },
 
-function windowScrollSections(i) {
-        if(this.pageYOffset > jbSectionsComp[i].offsetTop - (this.innerHeight / 2) + 100) 
-            jbSectionsComp[i].classList.add('active');
-}
+        toggleHamburgerMenu(event) {
+            event.target.parentElement.classList.toggle('menu-active');
+        },
 
-jbNavLinksComp.forEach(function(v) {
-    v.addEventListener('click', function(ev) {
-        ev.preventDefault();
-        var navLinkTo = v.getAttribute('href');
-        scrollWindow(document.getElementById(navLinkTo.substring(1)).offsetTop);
-    });
-});
+        debounce(fn, time) {
+            let timeoutFunction;
+            return function () {
+                clearTimeout(timeoutFunction);
+                timeoutFunction = setTimeout(fn, time);
+            }
+        }
+    },
+    computed: {
+        theYear() {
+            return new Date().getFullYear();
+        },
+    },
+    mounted() {
+        this.scrollFadeDebounce = this.debounce(this.scrollFadeSection, 100);
 
-setTimeout(function() {
-    jbSectionsComp[0].classList.add('active');
-}, 500);
+        window.addEventListener('scroll', this.scrollFadeDebounce);
 
-window.addEventListener('scroll', () => {
-    jbSectionsComp.forEach(function(v, i) {
-        windowScrollSections(i);
-    });
-});
-
-jbDate.textContent = (new Date()).getFullYear();
-
-// Hamburger menu
-document.querySelector('.hmbgr-menu').addEventListener('click', function() {
-    this.parentElement.classList.toggle('menu-active');
+        setTimeout(() => {
+            this.$refs.jbTop.classList.add('active');
+        }, 500);
+    }
 });

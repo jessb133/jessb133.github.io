@@ -151,6 +151,11 @@ section:first-child .h4 {
   margin-bottom: 0; 
 }
 
+#jb-contact input[type="checkbox"] {
+  position: absolute;
+    top: -20px;
+  visibility: hidden;
+}
 #jb-contact a {
   background: #333;
   display: inline-block;

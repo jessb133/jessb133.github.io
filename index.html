@@ -19,19 +19,23 @@
   </head>
 
   <body class="text-center">
-    <div class="">
+    <div id="root">
 
-      <button class="hmbgr-menu">
+      <button class="hmbgr-menu" @click="toggleHamburgerMenu($event)">
         <span></span>
       </button>
 
       <header class="masthead mb-auto">
         <div class="inner clearfix">
           <nav class="nav nav-masthead justify-content-center">
-            <a class="nav-link" href="#jb-home">Top</a>
-            <a class="nav-link" href="#jb-about">About</a>
-            <a class="nav-link" href="#jb-services">Services</a>
-            <a class="nav-link" href="#jb-contact">Contact</a>
+            <a 
+              v-for="section in sections" 
+              class="nav-link" 
+              :href="'#jb-' + section.name"
+              @click.prevent="scrollToSection($event)"
+            >
+              {{ section.name }}
+            </a>
           </nav>
         </div>
       </header>
@@ -39,7 +43,8 @@
 
       <main role="main" class="inner">
 
-        <section id="jb-home">
+        <section id="jb-top" ref="jbTop">
+
           <div id="jb-me">
             <img src="img/itsme.jpg" alt="a picture of me" title="Hi! it's me Jess Brisson; your Web Developer">
           </div>
@@ -60,10 +65,11 @@
                 <br><strong>Are you looking for a custom website or web solution?</strong></p>
             </div>
           </div>
+
         </section>
 
 
-        <section id="jb-about">
+        <section id="jb-about" ref="jbAbout">
 
           <div class="row jb-header">
             <div class="col-sm-12">
@@ -81,7 +87,7 @@
         </section>
 
 
-        <section id="jb-services">
+        <section id="jb-services" ref="jbServices">
 
           <div class="row jb-header">
             <div class="col-sm-12">
@@ -110,7 +116,7 @@
         </section>
 
 
-        <section id="jb-contact">
+        <section id="jb-contact" ref="jbContact">
 
           <div class="row jb-header">
             <div class="col-sm-12">
@@ -120,7 +126,8 @@
 
           <div class="row jb-content">
             <div class="col-sm-12">
-              <h3><a href="mailto:jessbrisson@gmail.com">jessbrisson@gmail.com</a></h3>
+              <input type="checkbox" @change="emailHoneypot" :disabled="!emailActive">
+              <h3 v-if="emailActive"><a href="mailto:jessbrisson@gmail.com">jessbrisson@gmail.com</a></h3>
               <!-- <form action="">
                 <div class="form-group">
                   <input type="text" placeholder="name" class="form-control form-control-lg">
@@ -144,13 +151,13 @@
       <footer class="mastfoot mt-auto">
         <div class="row">
           <div class="col">
-            <p><small>This site was created with modern(ES6) JavaScript. If you are experiencing issues please use an upgraded browser.</small></p>
-            <p><small><span class="jb-date"></span> | Jess Brisson</small></p>
+            <p><small>This site was created with modern(ES6) JavaScript and VueJS. If you are experiencing issues please use an upgraded browser.</small></p>
+            <p><small><span class="jb-date">{{ theYear }}</span> | Jess Brisson</small></p>
           </div>
         </div>
       </footer>
     </div>
-
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
     <script src="./js/main.js"></script>
   </body>
 </html>
