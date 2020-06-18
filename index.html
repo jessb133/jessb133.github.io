@@ -7,7 +7,7 @@
     <meta name="author" content="">
     <link rel="icon" href="/favicon.ico">
 
-    <title>Jess Brisson | PHP | JavaScript | Web Development</title>
+    <title>Jess Brisson | Python | PHP | JavaScript </title>
 
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400" rel="stylesheet">
 
@@ -40,6 +40,10 @@
         </div>
       </header>
 
+      <div v-if="terminalOpen" class="terminal-container">
+        <input class="col-sm-8 offset-sm-2" type="text" v-model="terminalInput" placeholder="type a command and hit enter">
+        <button @click="terminalClose()">close</button>
+      </div>
 
       <main role="main" class="inner">
 
@@ -57,9 +61,9 @@
 
           <div class="row jb-content">
             <div class="col-sm-12">
-              <p class="h4">Web Development that exceeds expectations.</p>
-              <p>Backend PHP Development with Laravel, WordPress, or Custom PHP/NodeJS.
-                <br>Frontend Solutions with modern JavaScript, Vue.js, Lodash, HTML, CSS/SCSS, Bootstrap.
+                <p class="h4">Web Development that exceeds expectations.</p>
+                <p>Backend Development with Python, PHP, or NodeJS. Relational Database Development and Management.
+                <br>Frontend Solutions with modern JavaScript, React.js, Vue.js, HTML5, CSS/SCSS, Bootstrap.
                 <br>Website/UI design.
                 <br>
                 <br><strong>Are you looking for a custom website or web solution?</strong></p>
@@ -98,12 +102,12 @@
           <div class="row jb-content">
             <div class="col-lg-4">
               <div>
-                <h3>PHP Backend Development (Laravel, WordPress, Databases, Custom)</h3>
+                <h3>PHP/Python Backend Development + Relational Database Development/Management</h3>
               </div>
             </div>
             <div class="col-lg-4">
               <div>
-                <h3>Frontend Development with JavaScript(ES5/6, Vue.js, Lodash, etc.), HTML, CSS(SCSS)</h3>
+                <h3>Frontend Development with JavaScript(ES5/6, React.js, Vue.js, Lodash, etc.), HTML, CSS(SCSS)</h3>
               </div>
             </div>
             <div class="col-lg-4">

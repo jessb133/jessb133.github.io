@@ -2,6 +2,8 @@ const app = new Vue({
     el: "#root",
     data: {
         emailActive: true,
+        terminalInput: "",
+        terminalOpen: false,
         sections: [
             { name: "top" },
             { name: "about" },
@@ -47,6 +49,19 @@ const app = new Vue({
                 clearTimeout(timeoutFunction);
                 timeoutFunction = setTimeout(fn, time);
             }
+        },
+
+        terminalClose() {
+            this.terminalOpen = false;
+        },
+
+        terminalInputEvaluate(input) {
+            if (typeof input === 'string') {
+                // add nested ifs or switches for more options
+                if (input.toLowerCase() === 'snake') {
+                    window.open('https://codesandbox.io/s/github/JessLovesCSS/React-Snake');
+                }
+            }
         }
     },
     computed: {
@@ -62,5 +77,15 @@ const app = new Vue({
         setTimeout(() => {
             this.$refs.jbTop.classList.add('active');
         }, 500);
+
+        document.addEventListener('keydown', event => {
+            if (event.which === 84) {
+                this.terminalOpen = true;
+            }
+
+            if (this.terminalOpen && event.which === 13) {
+                this.terminalInputEvaluate(this.terminalInput);
+            }
+        });
     }
 });
